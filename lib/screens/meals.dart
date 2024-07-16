@@ -10,6 +10,8 @@ class ComidaScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    //Esse Widget será exibido caso não existam comidas a serem exibidas em
+    //função dos filtros escolhidos
     Widget content = Center(child: Column(mainAxisSize: MainAxisSize.min,
       children: [
         Text('Nothing to show!', style: Theme.of(context)

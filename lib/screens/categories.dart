@@ -1,9 +1,21 @@
 import 'package:comida/widgets/category_grid_item.dart';
 import 'package:flutter/material.dart';
 import 'package:comida/data/dummy_data.dart';
+import 'package:comida/screens/meals.dart';
 
 class CategoriesScreen extends StatelessWidget{
   const CategoriesScreen ({super.key});
+
+  //in Stateless widgets Context is not globally available
+  void _selectCategory(BuildContext context) {
+    Navigator.of(context).push(
+        MaterialPageRoute(
+            builder: (ctx) => ComidaScreen(
+                title: 'Something',
+                meals: []),
+        ),
+    ); //ALT: Navigator.push(context, route);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +32,10 @@ class CategoriesScreen extends StatelessWidget{
         children: [
           //availableCategories.map((e) => CategoryGridItem(category: category)).toList()
           for (final category in availableCategories)
-            CategoryGridItem(category: category)
+            CategoryGridItem(
+                category: category,
+                onSelectCategory: () {_selectCategory(context);},
+            )
         ],)
     );
   }
