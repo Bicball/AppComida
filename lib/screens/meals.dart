@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:comida/models/meal.dart';
+import 'package:comida/widgets/meal_item.dart';
 
 class ComidaScreen extends StatelessWidget {
   const ComidaScreen({super.key, required this.title, required this.meals});
@@ -29,7 +30,8 @@ class ComidaScreen extends StatelessWidget {
       //Esse construtor só é usado para os itens que estão visíveis.
       content = ListView.builder(
         itemCount: meals.length,
-          itemBuilder: (ctx, index) => Text(meals[index].title));
+          itemBuilder: (ctx, index) => MealItem(meal: meals[index]),
+      );
     }
 
     return Scaffold(
