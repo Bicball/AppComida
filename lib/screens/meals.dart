@@ -1,3 +1,4 @@
+import 'package:comida/screens/meal_details.dart';
 import 'package:flutter/material.dart';
 import 'package:comida/models/meal.dart';
 import 'package:comida/widgets/meal_item.dart';
@@ -7,6 +8,11 @@ class ComidaScreen extends StatelessWidget {
 
   final String title;
   final List<Meal> meals;
+
+  //Função chamada pelo onSelectedMeal de meals.dart para empilhar a nova tela
+  void selectMeal (BuildContext context, Meal meal){
+    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => MealDetailsScreen(meal: meal),),);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +36,9 @@ class ComidaScreen extends StatelessWidget {
       //Esse construtor só é usado para os itens que estão visíveis.
       content = ListView.builder(
         itemCount: meals.length,
-          itemBuilder: (ctx, index) => MealItem(meal: meals[index]),
+          itemBuilder: (ctx, index) => MealItem(meal: meals[index], onSelectedMeal: (meal){
+            selectMeal(context, meal);
+          },),
       );
     }
 
