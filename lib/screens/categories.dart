@@ -1,13 +1,14 @@
 import 'package:comida/widgets/category_grid_item.dart';
-
-//import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:comida/data/dummy_data.dart';
 import 'package:comida/screens/meals.dart';
 import 'package:comida/models/category.dart';
+import 'package:comida/models/meal.dart';
 
 class CategoriesScreen extends StatelessWidget {
-  const CategoriesScreen({super.key});
+  const CategoriesScreen({super.key, required this.onToggleFavorite});
+
+  final void Function (Meal meal) onToggleFavorite;
 
   //in Stateless widgets Context is not globally available
   void _selectCategory(BuildContext context, Category category) {
@@ -20,6 +21,7 @@ class CategoriesScreen extends StatelessWidget {
         builder: (ctx) => MealsScreen(
             title: category.title,
             meals: filteredMeals,
+            onToggleFavorite: onToggleFavorite,
         ),
       ),
     ); //ALT: Navigator.push(context, route);

@@ -4,45 +4,68 @@ import 'package:comida/models/meal.dart';
 import 'package:comida/widgets/meal_item.dart';
 
 class MealsScreen extends StatelessWidget {
-  const MealsScreen({super.key, this.title, required this.meals});
+  const MealsScreen({
+    super.key,
+    this.title,
+    required this.meals,
+    required this.onToggleFavorite,
+  });
 
   final String? title;
   final List<Meal> meals;
+  final void Function(Meal meal) onToggleFavorite;
 
   //Função chamada pelo onSelectedMeal de meals.dart para empilhar a nova tela
-  void selectMeal (BuildContext context, Meal meal){
-    Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => MealDetailsScreen(meal: meal),),);
+  void selectMeal(BuildContext context, Meal meal) {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (ctx) => MealDetailsScreen(
+          meal: meal,
+          onToggleFavorite: onToggleFavorite,
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-
     //Esse Widget será exibido caso não existam comidas a serem exibidas em
     //função dos filtros escolhidos
-    Widget content = Center(child: Column(mainAxisSize: MainAxisSize.min,
+    Widget content = Center(
+        child: Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Nothing to show!', style: Theme.of(context)
-            .textTheme.headlineLarge!.copyWith(color: Theme.of(context)
-            .colorScheme.onBackground)),
-        const SizedBox(height: 16,),
-        Text('Try selecting a different category!', style: Theme.of(context)
-            .textTheme.bodyLarge!.copyWith(color: Theme.of(context)
-            .colorScheme.onBackground))
+        Text('Nothing to show!',
+            style: Theme.of(context)
+                .textTheme
+                .headlineLarge!
+                .copyWith(color: Theme.of(context).colorScheme.onBackground)),
+        const SizedBox(
+          height: 16,
+        ),
+        Text('Try selecting a different category!',
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge!
+                .copyWith(color: Theme.of(context).colorScheme.onBackground))
       ],
     ));
 
-    if(meals.isNotEmpty){
+    if (meals.isNotEmpty) {
       //Estamos criando uma ListView para exibir as comidas.
       //Esse construtor só é usado para os itens que estão visíveis.
       content = ListView.builder(
         itemCount: meals.length,
-          itemBuilder: (ctx, index) => MealItem(meal: meals[index], onSelectedMeal: (meal){
+        itemBuilder: (ctx, index) => MealItem(
+          meal: meals[index],
+          onSelectedMeal: (meal) {
             selectMeal(context, meal);
-          },),
+          },
+        ),
       );
     }
 
-    if(title == null){
+    if (title == null) {
       return content;
     }
 
@@ -50,7 +73,6 @@ class MealsScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(title!),
         ),
-        body: content
-    );
+        body: content);
   }
 }
