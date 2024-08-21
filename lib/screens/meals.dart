@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:comida/models/meal.dart';
 import 'package:comida/widgets/meal_item.dart';
 
-class ComidaScreen extends StatelessWidget {
-  const ComidaScreen({super.key, required this.title, required this.meals});
+class MealsScreen extends StatelessWidget {
+  const MealsScreen({super.key, this.title, required this.meals});
 
-  final String title;
+  final String? title;
   final List<Meal> meals;
 
   //Função chamada pelo onSelectedMeal de meals.dart para empilhar a nova tela
@@ -42,9 +42,13 @@ class ComidaScreen extends StatelessWidget {
       );
     }
 
+    if(title == null){
+      return content;
+    }
+
     return Scaffold(
         appBar: AppBar(
-          title: Text(title),
+          title: Text(title!),
         ),
         body: content
     );
