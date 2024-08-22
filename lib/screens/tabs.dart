@@ -2,6 +2,7 @@ import 'package:comida/screens/categories.dart';
 import 'package:comida/screens/meals.dart';
 import 'package:comida/models/meal.dart';
 import 'package:flutter/material.dart';
+import '../widgets/main_drawer.dart';
 
 class TabsScreen extends StatefulWidget {
   const TabsScreen({super.key});
@@ -46,6 +47,14 @@ class _TabsScreenState extends State<TabsScreen> {
     });
   }
 
+  void _setScreen (String identifier){
+    if(identifier == 'filters'){
+
+    }else{
+      Navigator.of(context).pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Widget activePage = CategoriesScreen(onToggleFavorite: _toggleMealFavoriteStatus,);
@@ -62,6 +71,7 @@ class _TabsScreenState extends State<TabsScreen> {
       appBar: AppBar(
         title: Text(activePageTitle),
       ),
+      drawer: MainDrawer(onSelectedScreen: _setScreen),
       body: activePage,
       bottomNavigationBar: BottomNavigationBar(
         onTap: _selectPage,
