@@ -1,4 +1,5 @@
 import 'package:comida/screens/categories.dart';
+import 'package:comida/screens/filters.dart';
 import 'package:comida/screens/meals.dart';
 import 'package:comida/models/meal.dart';
 import 'package:flutter/material.dart';
@@ -48,10 +49,9 @@ class _TabsScreenState extends State<TabsScreen> {
   }
 
   void _setScreen (String identifier){
+    Navigator.of(context).pop();
     if(identifier == 'filters'){
-
-    }else{
-      Navigator.of(context).pop();
+      Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => const FiltersScreen()));
     }
   }
 
